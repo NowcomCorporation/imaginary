@@ -1,0 +1,55 @@
+version: '3'
+services:
+  worker:
+    image: h2non/imaginary
+    ports:
+      - 9000:9000/tcp
+    entrypoint: "/go/bin/imaginary -cors -gzip -concurrency 10 -enable-url-source"
+    networks:
+      - backend
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  cache:
+    image: tutum/varnish
+    environment:
+      CONTENT: "-f /etc/varnish/default.vcl"
+      BACKEND_PORT: '9000'
+    volumes:
+    - ./default.vcl:/etc/varnish/default.vcl
+    ports:
+      - 80:80/tcp
+    networks:
+      - frontend
+      - backend
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
+
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    stop_grace_period: 1m30s
+    networks:
+      - frontend
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+networks:
+  frontend:
+  backend:
