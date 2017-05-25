@@ -19,9 +19,11 @@ services:
     image: tutum/varnish
     environment:
       CONTENT: "-f /etc/varnish/default.vcl"
-      BACKEND_PORT: '9000'
+      BACKEND_PORT: "9000"
+      CACHE: "file,/var/lib/varnish/varnish_storage.bin,5g"
     volumes:
-    - ./default.vcl:/etc/varnish/default.vcl
+      - ./default.vcl:/etc/varnish/default.vcl
+      - ./varnish_storage.bin:/var/lib/varnish/varnish_storage.bin
     ports:
       - 80:80/tcp
     networks:
