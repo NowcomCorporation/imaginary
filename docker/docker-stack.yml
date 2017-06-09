@@ -3,7 +3,8 @@ services:
   worker:
     image: h2non/imaginary
     entrypoint: "/go/bin/imaginary -cors -gzip -concurrency 10 -enable-url-source"
-    ports: ["9000"]
+    ports: 
+      - 9000:9000
     networks:
       - frontend
     deploy:
