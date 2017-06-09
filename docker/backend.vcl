@@ -14,7 +14,7 @@ vcl 4.0;
 
 import directors;
 
-backend docker2 {
+backend node1 {
     .host = "10.172.12.5";
     .port = "9000";
     .probe = {
@@ -29,7 +29,7 @@ backend docker2 {
     }
 }
 
-backend docker3 {
+backend node2 {
     .host = "10.172.12.6";
     .port = "9000";
     .probe = {
@@ -47,8 +47,8 @@ backend docker3 {
 
 sub vcl_init {
     new wp_director = directors.round_robin();
-    wp_director.add_backend(docker2);
-    wp_director.add_backend(docker3);
+    wp_director.add_backend(node1);
+    wp_director.add_backend(node2);
 }
 
 sub vcl_recv {
