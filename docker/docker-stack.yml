@@ -2,11 +2,10 @@ version: '3'
 services:
   worker:
     image: h2non/imaginary
-    ports:
-      - 9000:9000/tcp
     entrypoint: "/go/bin/imaginary -cors -gzip -concurrency 10 -enable-url-source"
+    ports: ["9000"]
     networks:
-      - backend
+      - frontend
     deploy:
       replicas: 2
       update_config:
@@ -15,15 +14,14 @@ services:
       restart_policy:
         condition: on-failure
 
-  cache:
+  frontend_cache:
     image: tutum/varnish
     environment:
       CONTENT: "-f /etc/varnish/default.vcl"
-      BACKEND_PORT: "9000"
-      CACHE: "file,/var/lib/varnish/varnish_storage.bin,5g"
+      BACKEND_PORT: '9000'
+      CACHE: "file,/var/lib/varnish/varnish_frontend_storage.bin,5g"
     volumes:
-      - ./default.vcl:/etc/varnish/default.vcl
-      - ./varnish_storage.bin:/var/lib/varnish/varnish_storage.bin
+    - ./frontend.vcl:/etc/varnish/default.vcl
     ports:
       - 80:80/tcp
     networks:
@@ -38,6 +36,28 @@ services:
         condition: on-failure
       placement:
         constraints: [node.role == manager]
+
+  backend_cache:
+    image: tutum/varnish
+    environment:
+      CONTENT: "-f /etc/varnish/default.vcl"
+      BACKEND_PORT: '9001'
+      CACHE: "file,/var/lib/varnish/varnish_backend_storage.bin,5g"
+    volumes:
+    - ./backend.vcl:/etc/varnish/default.vcl
+    ports:
+      - 81:80/tcp
+    networks:
+      - backend
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role != manager]
 
   visualizer:
     image: dockersamples/visualizer:stable

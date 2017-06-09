@@ -1,0 +1,10 @@
+---
+
+- hosts: docker
+  gather_facts: yes
+  remote_user: devops
+  become: yes
+
+  roles:
+    - docker
+
