@@ -20,6 +20,7 @@ type ImageOptions struct {
 	Flip        bool
 	Flop        bool
 	Force       bool
+	Box         bool
 	Embed       bool
 	NoCrop      bool
 	NoReplicate bool
@@ -51,6 +52,7 @@ func BimgOptions(o ImageOptions) bimg.Options {
 		Gravity:        o.Gravity,
 		Embed:          o.Embed,
 		Extend:         o.Extend,
+		Box:            o.Box,
 		Interpretation: o.Colorspace,
 		Type:           ImageType(o.Type),
 		Rotate:         bimg.Angle(o.Rotate),
