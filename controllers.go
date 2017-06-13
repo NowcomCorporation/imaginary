@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"gopkg.in/h2non/bimg.v1"
+	"github.com/NowcomCorporation/bimg"
 	"gopkg.in/h2non/filetype.v0"
 )
 

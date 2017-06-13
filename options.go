@@ -1,6 +1,6 @@
 package main
 
-import "gopkg.in/h2non/bimg.v1"
+import "github.com/NowcomCorporation/bimg"
 
 // ImageOptions represent all the supported image transformation params as first level members
 type ImageOptions struct {

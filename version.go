@@ -1,6 +1,6 @@
 package main
 
-import "gopkg.in/h2non/bimg.v1"
+import "github.com/NowcomCorporation/bimg"
 
 // Version stores the current package semantic version
 const Version = "1.0.0"

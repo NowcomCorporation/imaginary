@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"gopkg.in/h2non/bimg.v1"
+	"github.com/NowcomCorporation/bimg"
 )
 
 var allowedParams = map[string]string{
