@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	bimg "gopkg.in/h2non/bimg.v1"
+	bimg "github.com/NowcomCorporation/bimg"
 
 	. "github.com/tj/go-debug"
 )

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	"gopkg.in/h2non/bimg.v1"
+	"github.com/NowcomCorporation/bimg"
 )
 
 // Image stores an image binary buffer and its MIME type

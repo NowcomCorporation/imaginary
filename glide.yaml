@@ -1,6 +1,6 @@
 package: github.com/h2non/imaginary
 import:
-- package: gopkg.in/h2non/bimg.v1
+- package: github.com/NowcomCorporation/bimg
   version: ^1
 - package: gopkg.in/throttled/throttled.v2
   version: ^2

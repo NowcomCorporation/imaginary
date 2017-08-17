@@ -79,7 +79,7 @@ go get -u github.com/h2non/imaginary
 
 Also, be sure you have the latest version of `bimg`:
 ```bash
-go get -u gopkg.in/h2non/bimg.v1
+go get -u github.com/NowcomCorporation/bimg
 ```
 
 ### libvips
