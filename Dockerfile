@@ -3,7 +3,7 @@
 FROM ubuntu:16.04 as builder
 MAINTAINER tomas@aparicio.me
 
-ENV LIBVIPS_VERSION 8.6.3
+ENV LIBVIPS_VERSION 8.6.4
 
 # Installs libvips + required libraries
 RUN \
@@ -20,7 +20,7 @@ RUN \
 
   # Build libvips
   cd /tmp && \
-  curl -OL https://github.com/jcupitt/libvips/releases/download/v${LIBVIPS_VERSION}/vips-${LIBVIPS_VERSION}.tar.gz && \
+  curl -OL https://github.com/libvips/libvips/releases/download/v${LIBVIPS_VERSION}/vips-${LIBVIPS_VERSION}.tar.gz && \
   tar zvxf vips-${LIBVIPS_VERSION}.tar.gz && \
   cd /tmp/vips-${LIBVIPS_VERSION} && \
   ./configure --enable-debug=no --without-python $1 && \
